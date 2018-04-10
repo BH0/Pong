@@ -10,6 +10,8 @@ class Room {
         this.canvas.style.border = `5px solid ${this.color}`; 
         this.canvas.width = this.width; // + 10 
         this.canvas.height = this.height; 
+        
+        this.ball = ball; 
 
         this.paddleOne = paddleOne;
         this.paddleTwo = paddleTwo; 
@@ -33,7 +35,8 @@ class Room {
         this.ctx.clearRect(0, 0, this.width, this.height); 
 
         this.ball.move(); 
-        this.paddleTwo.move(this.ball.y); 
+        this.paddleTwo.move(this.ball.y);
+        this.paddleOne.move(this.ball.y);
     
         this.score(); 
         
@@ -45,30 +48,29 @@ class Room {
     } 
 
     score() { 
-          if (this.ball.x >= 290) { 
-              this.paddleOne.score += 1;
+          if (this.ball.x >= this.canvas.width + 20) { 
+              this.paddleOne.score += 1; 
               this.resetPositions(); 
-        } else if (this.ball.x <= 12) { 
-            this.paddleTwo.score += 1;
+        } else if (this.ball.x < 2) { 
+            this.paddleTwo.score += 1; 
             this.resetPositions(); 
         } 
     } 
     
-    ballCollisionWithPaddle() { // this likely is not correct (mathematically) 
-        if (this.ball.y >= this.paddleTwo.y - this.paddleTwo.height && this.ball.y <= this.paddleTwo.height + this.paddleTwo.height && this.ball.x >= this.paddleTwo.x - 10) { 
-            // alert("Collision");
-            console.log("Coll " + this.ball.y + " " + this.paddleTwo.y); 
-            this.ball.canMoveRight = false; 
-        } 
-        if (this.ball.y >= this.paddleOne.y +  this.paddleOne.height && this.ball.y <= this.paddleOne.height - this.paddleOne.height && this.ball.x >= this.paddleOne.x + 10) { 
-            // alert("Collision");
-            console.log("Coll " + this.ball.y + " " + this.paddleOne.y); 
-            this.ball.canMoveRight = true; 
-        }   
+    ballCollisionWithPaddle() { // changed ball to rectangle to make collision math easier 
+        if (this.ball.x < this.paddleTwo.x + this.paddleTwo.width &&
+           this.ball.x + this.ball.width > this.paddleTwo.x &&
+           this.ball.y < this.paddleTwo.y + this.paddleTwo.height &&
+           this.ball.height + this.ball.y > this.paddleTwo.y || this.ball.x < this.paddleOne.x + this.paddleOne.width &&
+           this.ball.x + this.ball.width > this.paddleOne.x &&
+           this.ball.y < this.paddleOne.y + this.paddleOne.height &&
+           this.ball.height + this.ball.y > this.paddleOne.y) {
+            this.ball.canMoveRight = !this.ball.canMoveRight;
+        }
     }
 
     resetPositions() {
-        this.ball = ball;
+        this.canMoveUp = false || true; this.canMoveRight = !this.canMoveRight;
         this.ball.x = this.width / 2;
         this.ball.y = this.height / 2 + 15;
 

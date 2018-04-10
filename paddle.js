@@ -7,7 +7,7 @@ class Paddle {
         this.y = 0; 
         this.color = color; 
         this.isPlayable = false; 
-        this.speed = 7; 
+        this.speed = 7; // 7.8 
         this.score = 0; 
         this.width = 10; 
         this.height = 50; 
@@ -37,12 +37,12 @@ class Paddle {
         } 
     } 
     
-    move(ballYPos) {
+    move(ballYPos) { 
         if (!this.isPlayable) {
             if (ballYPos > this.y) {
                 this.y += this.speed;
             } else {
-                this.y -= this.speed;
+                this.y -= this.speed; 
             }
         } 
     } 

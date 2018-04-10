@@ -5,13 +5,19 @@ class Ball {
         this.color = color; 
         this.x = 0; this.y = 0; 
         // may allow for customizable radious too 
-        this.canMoveUp = false; this.canMoveRight = false; 
+        this.canMoveUp = false || true; this.canMoveRight = false || true;
+        this.radius = 10;
+        this.sAngle = 0;
+        this.eAngle = 2 * Math.PI;
+
+        this.x = this.y = this.width = this.height = 10; 
     } 
     
     draw() { 
         this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, 10, 0, 2*Math.PI);
-        this.ctx.fill(); 
+        // this.ctx.arc(this.x, this.y, this.radius, this.sAngle, this.eAngle);
+        this.ctx.rect(this.x, this.y, this.width, this.height);
+        this.ctx.fill();
         this.ctx.closePath(); 
     } 
     
@@ -21,7 +27,7 @@ class Ball {
     } 
     
     moveY() { 
-        if (this.y >= 180) { 
+        if (this.y >= 480) { 
             this.canMoveUp = true; 
         } else if (this.y <= 12) { 
             this.canMoveUp = false; 
@@ -35,13 +41,11 @@ class Ball {
     } 
     
     moveX() { 
-        if (this.x >= 290) { 
-            this.canMoveRight = true; 
-        } else if (this.x <= 12) { 
-            this.canMoveRight = false; 
+        if (this.x >= 640 || this.x <= 2) { 
+            this.canMoveRight = (true) ? false : true; 
         } 
-        
-        if (this.canMoveRight) { 
+
+        if (this.canMoveRight) {
           this.x -= 10; 
         } else if (!this.canMoveRight) { 
             this.x += 10; 
