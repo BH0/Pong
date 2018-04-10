@@ -37,11 +37,13 @@ class Paddle {
         } 
     } 
     
-    move(ballYPos) { 
-        if (ballYPos > this.y) { 
-            this.y += this.speed;  
-        } else { 
-          this.y -= this.speed;   
+    move(ballYPos) {
+        if (!this.isPlayable) {
+            if (ballYPos > this.y) {
+                this.y += this.speed;
+            } else {
+                this.y -= this.speed;
+            }
         } 
     } 
 } 

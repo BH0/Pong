@@ -10,18 +10,11 @@ class Room {
         this.canvas.style.border = `5px solid ${this.color}`; 
         this.canvas.width = this.width; // + 10 
         this.canvas.height = this.height; 
-        
-        this.ball = ball; 
-        this.ball.x = this.width/2; 
-        this.ball.y = this.height/2 + 15;  
 
-        this.paddleOne = paddleOne; 
+        this.paddleOne = paddleOne;
         this.paddleTwo = paddleTwo; 
         
-        this.paddleOne.x = this.width - this.width + 10; 
-        this.paddleOne.y = this.height/2; 
-        this.paddleTwo.x = this.width - 20; 
-        this.paddleTwo.y = this.height/2; 
+        this.resetPositions(); 
     
         this.attatchWindowOrientationEventListener(); 
   } 
@@ -53,9 +46,11 @@ class Room {
 
     score() { 
           if (this.ball.x >= 290) { 
-            this.paddleOne.score += 1; 
+              this.paddleOne.score += 1;
+              this.resetPositions(); 
         } else if (this.ball.x <= 12) { 
-            this.paddleTwo.score += 1; 
+            this.paddleTwo.score += 1;
+            this.resetPositions(); 
         } 
     } 
     
@@ -69,7 +64,17 @@ class Room {
             // alert("Collision");
             console.log("Coll " + this.ball.y + " " + this.paddleOne.y); 
             this.ball.canMoveRight = true; 
-        } 
-        
-    } 
+        }   
+    }
+
+    resetPositions() {
+        this.ball = ball;
+        this.ball.x = this.width / 2;
+        this.ball.y = this.height / 2 + 15;
+
+        this.paddleOne.x = this.width - this.width + 10;
+        this.paddleOne.y = this.height / 2;
+        this.paddleTwo.x = this.width - 20;
+        this.paddleTwo.y = this.height / 2; 
+    }
 } 
