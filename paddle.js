@@ -16,7 +16,7 @@ class Paddle {
     getDeviceOrientation(event) { 
         this.isPlayable = true; 
         this.y = Math.round(event.beta); 
-        this.x = Math.round(event.gamma); 
+        // this.x = Math.round(event.gamma); 
     } 
     
     draw() { 
@@ -29,7 +29,7 @@ class Paddle {
     } 
     
     drawScore() { 
-        this.ctx.font = "18px Arial";
+        this.ctx.font = "18px Arial"; 
         if (!this.isPlayable) { // AI Paddle 
             this.ctx.fillText(`Score: ${this.score}`, this.x - 90, this.y); 
         } else { 
